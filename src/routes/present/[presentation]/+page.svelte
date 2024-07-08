@@ -28,10 +28,12 @@
 
   function nextSlide() {
     remote.send(currentSlideIndex + 1)
+    navigator.vibrate(50)
   }
 
   function previousSlide() {
     remote.send(currentSlideIndex - 1)
+    navigator.vibrate(50)
   }
 </script>
 
