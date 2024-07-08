@@ -1,14 +1,15 @@
 <script lang="ts">
+  import type { PageData } from './$types'
+
   import { qr } from '@svelte-put/qr/svg'
 
-  import { page } from '$app/stores'
   import { goto } from '$app/navigation'
-
+  import { page } from '$app/stores'
   // TODO: This file should probably be moved somewhere else, or rethought entirely.
-  import slides from '../../../_slides'
-  import { resolveTemplate } from '../../../+templates'
   import { remote } from '$lib/remote.svelte'
-  import type { PageData } from './$types'
+
+  import { resolveTemplate } from '../../../+templates'
+  import slides from '../../../_slides'
 
   let { data }: { data: PageData } = $props()
   let currentSlide = $derived(slides[data.slideIndex])
@@ -26,7 +27,9 @@
       return
     }
 
-    data.slideIndex < slides.length - 1 && updateSlideUrl(data.slideIndex + 1)
+    if (data.slideIndex < slides.length - 1) {
+      updateSlideUrl(data.slideIndex + 1)
+    }
   }
 
   function previousSlide() {
@@ -35,7 +38,9 @@
       return
     }
 
-    data.slideIndex > 0 && updateSlideUrl(data.slideIndex - 1)
+    if (data.slideIndex > 0) {
+      updateSlideUrl(data.slideIndex - 1)
+    }
   }
 
   function onKeyPress(e: KeyboardEvent) {

@@ -13,11 +13,13 @@ enum REMOTE_TYPE {
   CLIENT,
 }
 
+const NOOP = () => {}
+
 class Remote {
   #type: REMOTE_TYPE | undefined
   #socketState = $state(SOCKET_STATE.DISCONNECTED)
-  #send = (index: number) => {}
-  #onIndexUpdate = (index: number) => {}
+  #send: (index: number) => void = NOOP
+  #onIndexUpdate: (index: number) => void = NOOP
 
   active = $derived(this.#socketState === SOCKET_STATE.CONNECTED)
 
@@ -44,7 +46,7 @@ class Remote {
       query: { secret, totalSlides: totalNoOfSlides.toString() },
     })
 
-    ws.onopen = (e) => {
+    ws.onopen = () => {
       this.#socketState = SOCKET_STATE.CONNECTED
       this.#send = (index: number) => ws.send(JSON.stringify({ slide: index }))
 
@@ -83,7 +85,7 @@ class Remote {
       query: { secret },
     })
 
-    ws.onopen = (e) => {
+    ws.onopen = () => {
       this.#socketState = SOCKET_STATE.CONNECTED
       this.#send = (index: number) => ws.send(JSON.stringify({ slide: index }))
     }

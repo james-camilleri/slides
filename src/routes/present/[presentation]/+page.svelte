@@ -1,11 +1,13 @@
 <script lang="ts">
-  import SvelteMarkdown from 'svelte-markdown'
-  import { onMount } from 'svelte'
   import type { PageData } from './$types'
+
+  import { onMount } from 'svelte'
+  import SvelteMarkdown from 'svelte-markdown'
+
   import { remote } from '$lib/remote.svelte'
-  import slides from '../../../_slides'
+
   import { resolveTemplate } from '../../../+templates'
-  import { blur, crossfade, fade, fly, slide } from 'svelte/transition'
+  import slides from '../../../_slides'
 
   let { data }: { data: PageData } = $props()
 

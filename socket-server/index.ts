@@ -30,7 +30,7 @@ export default class Server implements Party.Server {
     }
   }
 
-  onMessage(message: string, sender: Party.Connection) {
+  onMessage(message: string) {
     const { slide } = JSON.parse(message) as { slide: number }
     const sanitisedIndex = Math.max(0, Math.min(this.#totalSlides - 1, slide))
 
