@@ -3,6 +3,7 @@ node_modules
 # Output
 .output
 .vercel
+.partykit
 /.svelte-kit
 /build
 
