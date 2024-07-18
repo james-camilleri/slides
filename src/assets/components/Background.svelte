@@ -44,8 +44,6 @@
         : { ...hiddenCircle },
       )
   })
-
-  $inspect(circles)
 </script>
 
 <div class="background" class:dark>
