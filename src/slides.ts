@@ -1,5 +1,7 @@
 import type { Slide } from '$lib/slide'
 
+import SvelteLogo from '$assets/components/SvelteLogo.svelte'
+
 export default [
   { template: 'start' },
   {
@@ -20,6 +22,14 @@ export default [
   },
   {
     text: 'A slide with **centred** text.',
+    // Use the `template` property to manually select a template.
     template: 'centredText',
+  },
+  {
+    text: 'This slide has a custom component in it',
+    component: SvelteLogo,
+  },
+  {
+    iframe: 'https://www.spacejam.com/1996',
   },
 ] satisfies Slide[]
