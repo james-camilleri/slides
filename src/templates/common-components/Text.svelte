@@ -32,5 +32,6 @@
 <style>
   p {
     margin: 0;
+    text-align: var(--text-align, start);
   }
 </style>

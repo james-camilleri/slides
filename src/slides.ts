@@ -18,4 +18,8 @@ export default [
     h2: 'The one with *lots* of ~~markdown~~',
     text: ["Coming to think of it this isn't *that* much markdown.", 'But you get the `gist`.'],
   },
+  {
+    text: 'A slide with **centred** text.',
+    template: 'centredText',
+  },
 ] satisfies Slide[]
