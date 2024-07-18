@@ -1,6 +1,7 @@
 import type { Slide } from '$lib/slide'
 
 export default [
+  { template: 'start' },
   {
     h1: 'Slide 1',
     text: 'Some plain old ordinary text.',
