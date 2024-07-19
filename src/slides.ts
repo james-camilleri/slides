@@ -1,5 +1,6 @@
 import type { Slide } from '$lib/slide'
 
+import Fibonacci from '$assets/code/fibonacci?raw'
 import SvelteLogo from '$assets/components/SvelteLogo.svelte'
 
 export default [
@@ -28,6 +29,14 @@ export default [
   {
     text: 'This slide has a custom component in it',
     component: SvelteLogo,
+  },
+  {
+    h1: 'Also with code',
+    h2: '(adjust colours and dark mode from template)',
+    code: {
+      source: Fibonacci,
+      language: 'ts',
+    },
   },
   {
     iframe: 'https://www.spacejam.com/1996',

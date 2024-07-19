@@ -52,4 +52,8 @@ a:visited {
   width: 100vw;
   height: 100vh;
   padding: 3rem;
+
+  &.dark {
+    color: var(--background);
+  }
 }
