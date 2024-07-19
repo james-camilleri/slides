@@ -15,6 +15,6 @@
 
 <style>
   .h2-only {
-    margin-inline-start: 0;
+    margin-block-start: 0;
   }
 </style>
