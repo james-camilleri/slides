@@ -6,7 +6,7 @@
   import { quintOut } from 'svelte/easing'
   import { fade, scale } from 'svelte/transition'
 
-  import { goto } from '$app/navigation'
+  import { beforeNavigate, goto } from '$app/navigation'
   import { page } from '$app/stores'
   import Background from '$assets/components/Background.svelte'
   import { remote } from '$lib/remote.svelte'
@@ -45,26 +45,39 @@
     goto(`/slides/${index}`)
   }
 
-  function nextSlide() {
+  function goToSlide(index: number) {
+    const nextSlide = Math.max(0, Math.min(slides.length - 1, index))
+
     if (remote.active) {
-      remote.send(data.slideIndex + 1)
+      remote.send(nextSlide)
       return
     }
 
-    if (data.slideIndex < slides.length - 1) {
-      updateSlideUrl(data.slideIndex + 1)
-    }
+    updateSlideUrl(nextSlide)
+  }
+
+  function firstSlide() {
+    goToSlide(0)
+  }
+
+  function lastSlide() {
+    goToSlide(slides.length - 1)
+  }
+
+  function jumpForward() {
+    goToSlide(data.slideIndex + 10)
+  }
+
+  function jumpBack() {
+    goToSlide(data.slideIndex - 10)
+  }
+
+  function nextSlide() {
+    goToSlide(data.slideIndex + 1)
   }
 
   function previousSlide() {
-    if (remote.active) {
-      remote.send(data.slideIndex - 1)
-      return
-    }
-
-    if (data.slideIndex > 0) {
-      updateSlideUrl(data.slideIndex - 1)
-    }
+    goToSlide(data.slideIndex - 1)
   }
 
   function onKeyPress(e: KeyboardEvent) {
@@ -74,6 +87,22 @@
 
     if (e.key === 'ArrowLeft') {
       return previousSlide()
+    }
+
+    if (e.key === 'Home') {
+      return firstSlide()
+    }
+
+    if (e.key === 'End') {
+      return lastSlide()
+    }
+
+    if (e.key === 'PageUp') {
+      return jumpForward()
+    }
+
+    if (e.key === 'PageDown') {
+      return jumpBack()
     }
 
     if (e.key === 'r') {
@@ -98,6 +127,15 @@
       timerStartTime = Date.now()
     }
   }
+
+  // Capture nav link clicks and re-route to remote if active.
+  beforeNavigate(({ cancel, to, type }) => {
+    const slideIndex = to?.params?.slideIndex
+    if (remote.active && slideIndex && type === 'link') {
+      remote.send(Number(slideIndex))
+      cancel()
+    }
+  })
 </script>
 
 <svelte:window onkeydown={onKeyPress} />
