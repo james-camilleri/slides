@@ -114,7 +114,7 @@
       const { presentationId, secret } = remote.host(data.slideIndex, slides.length)
       remote.onReceive(updateSlideUrl)
 
-      remoteConnectUrl = `https://${$page.url.host}/present/${presentationId}?secret=${secret}`
+      remoteConnectUrl = `https://${$page.url.host}/remote/${presentationId}?secret=${secret}`
       // TODO: Hide QR code once phone connects.
       showRemoteQrCode = true
     }
@@ -165,7 +165,7 @@
 
 {#key data.slideIndex}
   <div in:scale out:fade={{ easing: quintOut }}>
-  <svelte:component this={resolveTemplate(currentSlide)} {...currentSlide} />
+    <svelte:component this={resolveTemplate(currentSlide)} {...currentSlide} />
   </div>
 {/key}
 <Background currentSlideIndex={data.slideIndex} {...currentSlide} />
@@ -226,6 +226,7 @@
 
   .connect-url {
     font-family: monospace;
+    font-size: 0.5rem;
   }
 
   .iframe-preload {
