@@ -3,10 +3,12 @@
 
   import { qr } from '@svelte-put/qr/svg'
   import { onMount } from 'svelte'
+  import { quintOut } from 'svelte/easing'
+  import { fade, scale } from 'svelte/transition'
 
   import { goto } from '$app/navigation'
   import { page } from '$app/stores'
-  // TODO: This file should probably be moved somewhere else, or rethought entirely.
+  import Background from '$assets/components/Background.svelte'
   import { remote } from '$lib/remote.svelte'
 
   import slides from '../../../slides'
@@ -119,8 +121,11 @@
 </div>
 
 {#key data.slideIndex}
+  <div in:scale out:fade={{ easing: quintOut }}>
   <svelte:component this={resolveTemplate(currentSlide)} {...currentSlide} />
+  </div>
 {/key}
+<Background currentSlideIndex={data.slideIndex} {...currentSlide} />
 
 <div class="iframe-preload">
   {#each slides as slide}
