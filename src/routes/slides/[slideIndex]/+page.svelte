@@ -10,12 +10,14 @@
 
   import slides from '../../../slides'
   import { resolveTemplate } from '../../../templates'
+  import Timer from '../../components/Timer.svelte'
 
   let { data }: { data: PageData } = $props()
   let currentSlide = $derived(slides[data.slideIndex])
 
   let remoteConnectUrl = $state('')
   let showRemoteQrCode = $state(false)
+  let timerStartTime: number | undefined = $state()
 
   function updateSlideUrl(index: number) {
     goto(`/slides/${index}`)
@@ -69,6 +71,10 @@
     if (e.key === 'Escape') {
       showRemoteQrCode = false
     }
+
+    if (e.key === 't' && !timerStartTime) {
+      timerStartTime = Date.now()
+    }
   }
 </script>
 
@@ -89,11 +95,22 @@
   </div>
 {/if}
 
+<div class="timer">
+  <Timer startTime={timerStartTime} />
+</div>
+
 {#key data.slideIndex}
   <svelte:component this={resolveTemplate(currentSlide)} {...currentSlide} />
 {/key}
 
 <style>
+  .timer {
+    position: fixed;
+    bottom: 1rem;
+    left: 1.5rem;
+    z-index: 10;
+  }
+
   .overlay {
     position: fixed;
     top: 0;
