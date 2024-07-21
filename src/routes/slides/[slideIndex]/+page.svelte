@@ -2,6 +2,7 @@
   import type { PageData } from './$types'
 
   import { qr } from '@svelte-put/qr/svg'
+  import { onMount } from 'svelte'
 
   import { goto } from '$app/navigation'
   import { page } from '$app/stores'
@@ -11,6 +12,24 @@
   import slides from '../../../slides'
   import { resolveTemplate } from '../../../templates'
   import Timer from '../../components/Timer.svelte'
+
+  const imageUrls = slides.reduce((imageUrls, slide) => {
+    const { image, images } = slide
+    if (image) {
+      imageUrls.push(image)
+    }
+
+    if (images) {
+      imageUrls.push(...(Array.isArray(images) ? images : [images]))
+    }
+
+    return imageUrls
+  }, [] as string[])
+
+  // Prefetch image URLs for caching.
+  onMount(() => {
+    imageUrls.map((url) => fetch(url))
+  })
 
   let { data }: { data: PageData } = $props()
   let currentSlide = $derived(slides[data.slideIndex])
@@ -103,6 +122,14 @@
   <svelte:component this={resolveTemplate(currentSlide)} {...currentSlide} />
 {/key}
 
+<div class="iframe-preload">
+  {#each slides as slide}
+    {#if slide.iframe}
+      <iframe title="preload: {slide.iframe}" src={slide.iframe}></iframe>
+    {/if}
+  {/each}
+</div>
+
 <style>
   .timer {
     position: fixed;
@@ -143,6 +170,9 @@
 
   .connect-url {
     font-family: monospace;
-    font-size: 1rem;
+  }
+
+  .iframe-preload {
+    display: none;
   }
 </style>
