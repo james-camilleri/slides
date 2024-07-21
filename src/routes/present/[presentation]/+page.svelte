@@ -4,10 +4,11 @@
   import { onMount } from 'svelte'
   import SvelteMarkdown from 'svelte-markdown'
 
+  import Background from '$assets/components/Background.svelte'
   import { remote } from '$lib/remote.svelte'
 
-  import { resolveTemplate } from '../../../+templates'
-  import slides from '../../../_slides'
+  import slides from '../../../slides'
+  import { resolveTemplate } from '../../../templates'
 
   let { data }: { data: PageData } = $props()
 
@@ -48,9 +49,11 @@
     <button class="next" onclick={nextSlide}>Next &gt;</button>
   </div>
   <div class="preview">
-    {#key currentSlideIndex}
+    <!-- Don't render iframes because the blow up the remote. -->
+    {#if !currentSlide.iframe}
       <svelte:component this={resolveTemplate(currentSlide)} {...currentSlide} />
-    {/key}
+    {/if}
+    <Background {currentSlideIndex} {...currentSlide} />
   </div>
 </div>
 
@@ -64,7 +67,9 @@
 
   .notes {
     padding: 1rem 2rem;
+    overflow-y: auto;
     font-family: sans-serif;
+    font-size: 2rem;
     color: var(--interface-light);
     background: var(--interface-dark);
   }
@@ -72,7 +77,7 @@
   .buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    height: 10vh;
+    height: 20vh;
 
     button {
       font-size: 1.5rem;
@@ -83,6 +88,12 @@
   }
 
   .preview {
+    width: 100%;
     aspect-ratio: 16 / 9;
+  }
+
+  :global(html) {
+    /* Override base font size in previews. */
+    font-size: 12px !important;
   }
 </style>
