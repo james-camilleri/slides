@@ -13,6 +13,7 @@
 
   import slides from '../../../slides'
   import { resolveTemplate } from '../../../templates'
+  import Controls from '../../components/Controls.svelte'
   import Timer from '../../components/Timer.svelte'
 
   const imageUrls = slides.reduce((imageUrls, slide) => {
@@ -120,6 +121,10 @@
   <Timer startTime={timerStartTime} />
 </div>
 
+<div class="controls">
+  <Controls baseUrl="/slides" currentSlide={data.slideIndex} lastSlide={slides.length - 1} />
+</div>
+
 {#key data.slideIndex}
   <div in:scale out:fade={{ easing: quintOut }}>
   <svelte:component this={resolveTemplate(currentSlide)} {...currentSlide} />
@@ -141,6 +146,14 @@
     bottom: 1rem;
     left: 1.5rem;
     z-index: 10;
+  }
+
+  .controls {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 10;
+    opacity: 0.7;
   }
 
   .overlay {
