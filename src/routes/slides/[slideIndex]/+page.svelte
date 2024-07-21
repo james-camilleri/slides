@@ -70,19 +70,9 @@
       showRemoteQrCode = false
     }
   }
-
-  function onMouseWheel(e: WheelEvent) {
-    if (e.deltaY > 0) {
-      return nextSlide()
-    }
-
-    if (e.deltaY < 0) {
-      return previousSlide()
-    }
-  }
 </script>
 
-<svelte:window onkeydown={onKeyPress} onwheel={onMouseWheel} />
+<svelte:window onkeydown={onKeyPress} />
 
 {#if showRemoteQrCode}
   <div class="overlay">
