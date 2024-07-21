@@ -54,4 +54,5 @@ export default [
   {
     iframe: 'https://www.spacejam.com/1996',
   },
+  { template: 'end' },
 ] satisfies Slide[]
