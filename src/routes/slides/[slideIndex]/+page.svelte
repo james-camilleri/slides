@@ -8,8 +8,8 @@
   // TODO: This file should probably be moved somewhere else, or rethought entirely.
   import { remote } from '$lib/remote.svelte'
 
-  import { resolveTemplate } from '../../../+templates'
-  import slides from '../../../_slides'
+  import slides from '../../../slides'
+  import { resolveTemplate } from '../../../templates'
 
   let { data }: { data: PageData } = $props()
   let currentSlide = $derived(slides[data.slideIndex])
