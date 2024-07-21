@@ -206,7 +206,6 @@
     justify-content: center;
     width: 100vw;
     height: 100vh;
-    font-family: sans-serif;
     font-size: 2rem;
     color: var(--interface-light);
     background: var(--interface-dark-semitransparent);
