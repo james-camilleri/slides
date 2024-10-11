@@ -9,6 +9,9 @@ const config = {
     alias: {
       $assets: './src/assets',
     },
+    files: {
+      routes: './src/app',
+    },
   },
 }
 
