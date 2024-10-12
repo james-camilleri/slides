@@ -72,8 +72,8 @@ importers:
         specifier: ^5.1.1
         version: 5.1.1(stylelint@16.10.0(typescript@5.6.3))
       stylelint-config-sass-guidelines:
-        specifier: ^11.1.0
-        version: 11.1.0(postcss@8.4.47)(stylelint@16.10.0(typescript@5.6.3))
+        specifier: ^12.0.0
+        version: 12.1.0(postcss@8.4.47)(stylelint@16.10.0(typescript@5.6.3))
       stylelint-config-standard-scss:
         specifier: ^13.1.0
         version: 13.1.0(postcss@8.4.47)(stylelint@16.10.0(typescript@5.6.3))
@@ -517,6 +517,12 @@ packages:
 
   '@shikijs/vscode-textmate@9.3.0':
     resolution: {integrity: sha512-jn7/7ky30idSkd/O5yDBfAnVt+JJpepofP/POZ1iMOxK59cOfqIgg/Dj0eFsjOTMw+4ycJN0uhZH/Eb0bs/EUA==}
+
+  '@stylistic/stylelint-plugin@3.1.1':
+    resolution: {integrity: sha512-XagAHHIa528EvyGybv8EEYGK5zrVW74cHpsjhtovVATbhDRuJYfE+X4HCaAieW9lCkwbX6L+X0I4CiUG3w/hFw==}
+    engines: {node: ^18.12 || >=20.9}
+    peerDependencies:
+      stylelint: ^16.8.0
 
   '@svelte-put/qr@1.2.1':
     resolution: {integrity: sha512-VIAze6mCVWdiyq6xnMFhbD3dbTvz9CDFVN3lVkDvx6SYFcstgHuIyb7Pi3aJIr2ClDc4U+W2U+SGhFuQBskvBg==}
@@ -1988,6 +1994,9 @@ packages:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
 
+  style-search@0.1.0:
+    resolution: {integrity: sha512-Dj1Okke1C3uKKwQcetra4jSuk0DqbzbYtXipzFlFMZtowbF1x7BKJwB9AayVMyFARvU8EDrZdcax4At/452cAg==}
+
   stylelint-config-html@1.1.0:
     resolution: {integrity: sha512-IZv4IVESjKLumUGi+HWeb7skgO6/g4VMuAYrJdlqQFndgbj6WJAXPhaysvBiXefX79upBdQVumgYcdd17gCpjQ==}
     engines: {node: ^12 || >=14}
@@ -2023,8 +2032,8 @@ packages:
     peerDependencies:
       stylelint: ^16.1.0
 
-  stylelint-config-sass-guidelines@11.1.0:
-    resolution: {integrity: sha512-mVE3UmN8MlshK4Gb3eYk6f8tw9DkQ9yjMF4W9krlmpaNZpSXOdh13AL0sU7l/9l4Pnpt4KMobNNIRI0tJl56Cw==}
+  stylelint-config-sass-guidelines@12.1.0:
+    resolution: {integrity: sha512-NTxEtVT6uNSqRvq+A3ScyKhjUrY/Z845TnpWEwnMgIPZ/+/Waa4+51r6OPuQRMu4XZS3D8DK1UaT4TWFBvuuAw==}
     engines: {node: '>=18.12.0'}
     peerDependencies:
       postcss: ^8.4.21
@@ -2655,6 +2664,17 @@ snapshots:
       '@types/hast': 3.0.4
 
   '@shikijs/vscode-textmate@9.3.0': {}
+
+  '@stylistic/stylelint-plugin@3.1.1(stylelint@16.10.0(typescript@5.6.3))':
+    dependencies:
+      '@csstools/css-parser-algorithms': 3.0.2(@csstools/css-tokenizer@3.0.2)
+      '@csstools/css-tokenizer': 3.0.2
+      '@csstools/media-query-list-parser': 3.0.1(@csstools/css-parser-algorithms@3.0.2(@csstools/css-tokenizer@3.0.2))(@csstools/css-tokenizer@3.0.2)
+      is-plain-object: 5.0.0
+      postcss-selector-parser: 6.1.2
+      postcss-value-parser: 4.2.0
+      style-search: 0.1.0
+      stylelint: 16.10.0(typescript@5.6.3)
 
   '@svelte-put/qr@1.2.1(svelte@5.0.0-next.264)':
     dependencies:
@@ -4295,6 +4315,8 @@ snapshots:
 
   strip-json-comments@3.1.1: {}
 
+  style-search@0.1.0: {}
+
   stylelint-config-html@1.1.0(postcss-html@1.7.0)(stylelint@16.10.0(typescript@5.6.3)):
     dependencies:
       postcss-html: 1.7.0
@@ -4322,8 +4344,9 @@ snapshots:
     dependencies:
       stylelint: 16.10.0(typescript@5.6.3)
 
-  stylelint-config-sass-guidelines@11.1.0(postcss@8.4.47)(stylelint@16.10.0(typescript@5.6.3)):
+  stylelint-config-sass-guidelines@12.1.0(postcss@8.4.47)(stylelint@16.10.0(typescript@5.6.3)):
     dependencies:
+      '@stylistic/stylelint-plugin': 3.1.1(stylelint@16.10.0(typescript@5.6.3))
       postcss: 8.4.47
       postcss-scss: 4.0.9(postcss@8.4.47)
       stylelint: 16.10.0(typescript@5.6.3)
