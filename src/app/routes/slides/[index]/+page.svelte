@@ -87,6 +87,18 @@
         break
       }
 
+      // Presenter view.
+      case 'p': {
+        const { presentationId, secret } = remote.host(
+          data.slideIndex,
+          slides.length,
+          updateSlideUrl,
+        )
+
+        window.open(`https://${$page.url.host}/present/${presentationId}?secret=${secret}`)
+        break
+      }
+
       // Share slides.
       case 's': {
         if (!shareUrl) {
