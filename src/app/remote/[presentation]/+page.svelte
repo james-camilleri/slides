@@ -4,10 +4,10 @@
   import { onMount } from 'svelte'
   import SvelteMarkdown from 'svelte-markdown'
 
-  import { remote } from '$lib/remote.svelte'
+  import SlideView from '$internal/components/SlideView.svelte'
+  import { remote } from '$internal/utils/remote.svelte'
 
   import slides from '../../../slides'
-  import SlideView from '../../components/SlideView.svelte'
 
   let { data }: { data: PageData } = $props()
 

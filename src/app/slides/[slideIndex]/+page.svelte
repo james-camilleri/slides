@@ -5,13 +5,12 @@
 
   import { beforeNavigate, goto } from '$app/navigation'
   import { page } from '$app/stores'
-  import Background from '$assets/components/Background.svelte'
-  import { remote } from '$lib/remote.svelte'
+  import Controls from '$internal/components/Controls.svelte'
+  import SlideView from '$internal/components/SlideView.svelte'
+  import Timer from '$internal/components/Timer.svelte'
+  import { remote } from '$internal/utils/remote.svelte'
 
   import slides from '../../../slides'
-  import Controls from '../../components/Controls.svelte'
-  import SlideView from '../../components/SlideView.svelte'
-  import Timer from '../../components/Timer.svelte'
 
   const imageUrls = slides.reduce((imageUrls, slide) => {
     const { image, images } = slide

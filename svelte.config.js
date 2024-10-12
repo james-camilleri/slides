@@ -8,6 +8,8 @@ const config = {
     adapter: adapter({ edge: true }),
     alias: {
       $assets: './src/assets',
+      '$internal/components': './src/app/components',
+      '$internal/utils': './src/app/utils',
     },
     files: {
       routes: './src/app',
