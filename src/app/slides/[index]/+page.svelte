@@ -37,6 +37,8 @@
 
   let remoteConnectUrl = $state('')
   let showRemoteQrCode = $state(false)
+  let shareUrl = $state('')
+  let showShareQrCode = $state(false)
   let timerStartTime: number | undefined = $state()
 
   function updateSlideUrl(index: number) {
@@ -86,16 +88,34 @@
         break
       }
 
+      // Share slides.
+      case 's': {
+        if (!shareUrl) {
+          const { presentationId } = remote.host(data.slideIndex, slides.length, updateSlideUrl)
+
+          shareUrl = `https://${$page.url.host}/slides/${presentationId}/${currentIndex}`
+          showShareQrCode = true
+
+          return
+        }
+
+        // Update share URL with current slide every time this is triggered.
+        shareUrl = shareUrl.split('/').slice(0, -1).join('/') + `/${currentIndex}`
+        showShareQrCode = !showShareQrCode
+
+        break
+      }
 
       case 'Escape': {
-      showRemoteQrCode = false
+        showRemoteQrCode = false
+        showShareQrCode = false
         break
       }
 
       // Timer.
       case 't': {
         if (!timerStartTime) {
-      timerStartTime = Date.now()
+          timerStartTime = Date.now()
         }
 
         break
@@ -118,6 +138,9 @@
 {#if showRemoteQrCode}
   <QrCode title="Pair remote" connectionUrl={remoteConnectUrl} />
 {/if}
+{#if showShareQrCode}
+  <QrCode title="Follow slides" connectionUrl={shareUrl} />
+{/if}
 
 <div class="timer">
   <Timer startTime={timerStartTime} />
@@ -129,7 +152,7 @@
 
 <div class="view">
   <SlideView slideIndex={currentIndex} />
-  </div>
+</div>
 
 <div class="iframe-preload">
   {#each slides as slide}

@@ -12,6 +12,7 @@ const config = {
       '$internal/utils': './src/app/utils',
     },
     files: {
+      params: './src/app/params',
       routes: './src/app',
     },
   },
