@@ -3,7 +3,6 @@
 
   import { SeededRandom } from '$lib/random'
 
-
   let { currentSlideIndex, code, h1, h2 }: BackgroundProps = $props()
 
   const WIDTH = 1920

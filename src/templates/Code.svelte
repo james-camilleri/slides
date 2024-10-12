@@ -3,8 +3,6 @@
 
   import { codeToHtml } from 'shiki'
 
-
-
   import Title from './common-components/Title.svelte'
 
   let { h1, h2, code }: Slide = $props()

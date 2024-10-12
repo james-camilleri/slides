@@ -1,5 +1,4 @@
 <script lang="ts">
-
   import type { PageData } from './$types'
 
   import { onMount } from 'svelte'
@@ -14,7 +13,6 @@
 
   import { beforeNavigate, goto } from '$app/navigation'
   import { page } from '$app/stores'
-
 
   const imageUrls = slides.reduce((imageUrls, slide) => {
     const { image, images } = slide

@@ -3,7 +3,6 @@
 
   import { random } from '$lib/random'
 
-
   import Title from './common-components/Title.svelte'
 
   let { h1, h2, image, images }: Slide = $props()
