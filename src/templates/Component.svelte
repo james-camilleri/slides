@@ -3,14 +3,14 @@
 
   import Title from './common-components/Title.svelte'
 
-  let { h1, h2, component }: Slide = $props()
+  let { h1, h2, component: Component }: Slide = $props()
 </script>
 
 <div class="slide">
   <Title {h1} {h2} />
 
-  {#if component}
-    <svelte:component this={component} />
+  {#if Component}
+    <Component />
   {/if}
 </div>
 

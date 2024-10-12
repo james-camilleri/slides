@@ -1,5 +1,5 @@
 import { quintOut } from 'svelte/easing'
-import { fade, scale, type TransitionConfig } from 'svelte/transition'
+import { type TransitionConfig, fade, scale } from 'svelte/transition'
 
 type TransitionFunction = (
   node: Element,

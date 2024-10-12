@@ -1,15 +1,16 @@
 <script lang="ts">
+
   import type { PageData } from './$types'
 
-  import { onMount } from 'svelte'
-  import { fade } from 'svelte/transition'
-  import SvelteMarkdown from 'svelte-markdown'
+  import { fade, onMount  } from 'svelte'
+    import SvelteMarkdown from 'svelte-markdown'
 
   import SlideView from '$internal/components/SlideView.svelte'
   import Timer from '$internal/components/Timer.svelte'
   import { getNextSlide } from '$internal/utils/navigation'
   import { remote } from '$internal/utils/remote.svelte'
   import slides from '$slides'
+
 
   let { data }: { data: PageData } = $props()
 

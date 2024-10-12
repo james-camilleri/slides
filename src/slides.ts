@@ -1,3 +1,4 @@
+
 import type { Slide } from '$lib/slide'
 
 import Fibonacci from '$assets/code/fibonacci?raw'

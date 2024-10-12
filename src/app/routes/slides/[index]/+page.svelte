@@ -1,10 +1,9 @@
 <script lang="ts">
+
   import type { PageData } from './$types'
 
   import { onMount } from 'svelte'
 
-  import { beforeNavigate, goto } from '$app/navigation'
-  import { page } from '$app/stores'
   import Controls from '$internal/components/Controls.svelte'
   import QrCode from '$internal/components/QrCode.svelte'
   import SlideView from '$internal/components/SlideView.svelte'
@@ -12,6 +11,10 @@
   import { getNextSlide } from '$internal/utils/navigation'
   import { remote } from '$internal/utils/remote.svelte'
   import slides from '$slides'
+
+  import { beforeNavigate, goto } from '$app/navigation'
+  import { page } from '$app/stores'
+
 
   const imageUrls = slides.reduce((imageUrls, slide) => {
     const { image, images } = slide

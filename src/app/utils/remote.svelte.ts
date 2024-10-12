@@ -1,4 +1,4 @@
-import PartySocket from 'partysocket'
+import { PartySocket } from 'partysocket'
 
 import { PUBLIC_PARTYKIT_HOST } from '$env/static/public'
 
@@ -25,7 +25,7 @@ interface Message {
 }
 
 const NOOP = () => {}
-const KEY = 'slide-presentation-id' as const
+const KEY = 'slide-presentation-id'
 const MILLISECONDS_IN_24_HRS = 1000 * 60 * 60 * 24
 
 class Remote {

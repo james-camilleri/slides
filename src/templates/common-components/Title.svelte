@@ -3,6 +3,8 @@
 
   import SvelteMarkdown from 'svelte-markdown'
 
+
+
   let { h1, h2 }: Pick<Slide, 'h1' | 'h2'> = $props()
 </script>
 

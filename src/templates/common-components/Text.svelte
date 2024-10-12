@@ -3,6 +3,8 @@
 
   import SvelteMarkdown from 'svelte-markdown'
 
+
+
   let { text }: { text?: Slide['text'] } = $props()
 
   let paragraphs = $derived(

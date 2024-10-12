@@ -1,6 +1,7 @@
 import type { TemplateName } from '../templates'
 import type { Component } from 'svelte'
 
+
 // TODO: This style thing is a bit of an abomination.
 type Text = string | { text: string; style?: Record<string, string> }
 

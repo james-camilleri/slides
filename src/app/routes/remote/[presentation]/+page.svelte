@@ -1,4 +1,5 @@
 <script lang="ts">
+
   import type { PageData } from './$types'
 
   import { onMount } from 'svelte'
@@ -7,6 +8,7 @@
   import SlideView from '$internal/components/SlideView.svelte'
   import { remote } from '$internal/utils/remote.svelte'
   import slides from '$slides'
+
 
   let { data }: { data: PageData } = $props()
 
