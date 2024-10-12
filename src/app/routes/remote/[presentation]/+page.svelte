@@ -6,8 +6,7 @@
 
   import SlideView from '$internal/components/SlideView.svelte'
   import { remote } from '$internal/utils/remote.svelte'
-
-  import slides from '../../../slides'
+  import slides from '$slides'
 
   let { data }: { data: PageData } = $props()
 

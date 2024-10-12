@@ -2,7 +2,7 @@
   import Background from '$assets/components/Background.svelte'
   import { transition } from '$lib/transition'
 
-  import slides from '../../slides'
+  import slides from '$slides'
   import { resolveTemplate } from '../../templates'
 
   import '../../styles/slides.css'

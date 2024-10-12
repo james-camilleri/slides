@@ -11,8 +11,7 @@
   import Timer from '$internal/components/Timer.svelte'
   import { getNextSlide } from '$internal/utils/navigation'
   import { remote } from '$internal/utils/remote.svelte'
-
-  import slides from '../../../slides'
+  import slides from '$slides'
 
   const imageUrls = slides.reduce((imageUrls, slide) => {
     const { image, images } = slide
