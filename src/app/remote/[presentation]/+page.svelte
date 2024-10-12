@@ -20,10 +20,9 @@
       return
     }
 
-    remote.onReceive((index) => {
+    remote.connect(data.presentation, data.secret, (index) => {
       currentSlideIndex = index
     })
-    remote.connect(data.presentation, data.secret)
   })
 
   function nextSlide() {

@@ -13,37 +13,94 @@ enum REMOTE_TYPE {
   CLIENT,
 }
 
+interface Session {
+  presentationId: string
+  secret: string
+  timestamp: number
+}
+
+interface Message {
+  slide?: number
+  status?: 'new-connection'
+}
+
 const NOOP = () => {}
+const KEY = 'slide-presentation-id' as const
+const MILLISECONDS_IN_24_HRS = 1000 * 60 * 60 * 24
 
 class Remote {
   #type: REMOTE_TYPE | undefined
   #socketState = $state(SOCKET_STATE.DISCONNECTED)
+  #presentationId: string | undefined
+  #secret: string | undefined
   #send: (index: number) => void = NOOP
-  #onIndexUpdate: (index: number) => void = NOOP
+  #onSlideChange: (index: number) => void = NOOP
+  #onStatusUpdate: (status: string) => void = NOOP
+
+  #storeSession(presentationId: string, secret: string) {
+    const data = { presentationId, secret, timestamp: Date.now() }
+    localStorage.setItem(KEY, JSON.stringify(data))
+  }
+
+  #restoreSession() {
+    const storedData = localStorage.getItem(KEY)
+    const { presentationId, secret, timestamp } =
+      storedData ? (JSON.parse(storedData) as Session) : {}
+    if (timestamp && timestamp < Date.now() - MILLISECONDS_IN_24_HRS) {
+      return { presentationId, secret }
+    }
+  }
+
+  #setupSession() {
+    if (this.#presentationId && this.#secret) {
+      return
+    }
+
+    const { presentationId, secret } = this.#restoreSession() ?? {}
+    if (presentationId && secret) {
+      this.#presentationId = presentationId
+      this.#secret = secret
+    } else {
+      this.#presentationId = crypto.randomUUID()
+      this.#secret = crypto.randomUUID().replaceAll('-', '')
+      this.#storeSession(this.#presentationId, this.#secret)
+    }
+  }
 
   active = $derived(this.#socketState === SOCKET_STATE.CONNECTED)
 
   /**
    * Called from the host presentation to accept incoming remote control.
    */
-  host(currentSlideIndex: number, totalNoOfSlides: number) {
+  host(
+    currentSlideIndex: number,
+    totalNoOfSlides: number,
+    onSlideChange?: (index: number) => void,
+  ) {
     if (this.#type === REMOTE_TYPE.CLIENT) {
       throw Error('Cannot be a host and a client at the same time')
     }
 
+    // Web socket has already been started, just return the id and secret.
+    if (this.#presentationId && this.#secret) {
+      return {
+        presentationId: this.#presentationId,
+        secret: this.#secret,
+      }
+    }
+
     this.#type = REMOTE_TYPE.HOST
     this.#socketState = SOCKET_STATE.CONNECTING
+    this.#setupSession()
 
-    const presentationId = `slides-remote-${crypto.randomUUID()}`
-    // TODO: Save this to local storage so we can reconnect on refresh?
-    const id = crypto.randomUUID()
-    const secret = crypto.randomUUID().replace('-', '')
+    if (onSlideChange) {
+      this.#onSlideChange = onSlideChange
+    }
 
     const ws = new PartySocket({
       host: PUBLIC_PARTYKIT_HOST || 'localhost:1999',
-      room: presentationId,
-      id,
-      query: { secret, totalSlides: totalNoOfSlides.toString() },
+      room: this.#presentationId,
+      query: { secret: this.#secret, totalSlides: totalNoOfSlides.toString() },
     })
 
     ws.onopen = () => {
@@ -54,20 +111,27 @@ class Remote {
     }
 
     ws.onmessage = (e: MessageEvent<string>) => {
-      const { slide } = JSON.parse(e.data) as { slide: number }
-      this.#onIndexUpdate(slide)
+      const { slide, status } = JSON.parse(e.data) as Message
+
+      if (slide != null) {
+        this.#onSlideChange(slide)
+      }
+
+      if (status) {
+        this.#onStatusUpdate(status)
+      }
     }
 
     return {
-      presentationId,
-      secret,
+      presentationId: this.#presentationId,
+      secret: this.#secret,
     }
   }
 
   /**
    * Called from the remote interface to connect to a hosting presentation.
    */
-  connect(presentationId: string, secret: string) {
+  connect(presentationId: string, secret?: string | null, onSlideChange?: (index: number) => void) {
     if (this.#type === REMOTE_TYPE.HOST) {
       throw Error('Cannot be a host and a client at the same time')
     }
@@ -75,13 +139,13 @@ class Remote {
     this.#type = REMOTE_TYPE.CLIENT
     this.#socketState = SOCKET_STATE.CONNECTING
 
-    // TODO: Save this to local storage so we can reconnect on refresh?
-    const id = crypto.randomUUID()
+    if (onSlideChange) {
+      this.#onSlideChange = onSlideChange
+    }
 
     const ws = new PartySocket({
       host: PUBLIC_PARTYKIT_HOST || 'localhost:1999',
       room: presentationId,
-      id,
       query: { secret },
     })
 
@@ -91,8 +155,10 @@ class Remote {
     }
 
     ws.onmessage = (e: MessageEvent<string>) => {
-      const { slide } = JSON.parse(e.data) as { slide: number }
-      this.#onIndexUpdate(slide)
+      const { slide } = JSON.parse(e.data) as Message
+      if (slide != null) {
+        this.#onSlideChange(slide)
+      }
     }
   }
 
@@ -100,8 +166,12 @@ class Remote {
     this.#send(slideIndex)
   }
 
-  onReceive(updateHandler: (index: number) => void) {
-    this.#onIndexUpdate = updateHandler
+  onSlideChange(handler: (index: number) => void) {
+    this.#onSlideChange = handler
+  }
+
+  onStatusUpdate(handler: (status: string) => void) {
+    this.#onStatusUpdate = handler
   }
 }
 

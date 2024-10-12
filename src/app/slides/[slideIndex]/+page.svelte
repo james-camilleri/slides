@@ -8,6 +8,7 @@
   import Controls from '$internal/components/Controls.svelte'
   import SlideView from '$internal/components/SlideView.svelte'
   import Timer from '$internal/components/Timer.svelte'
+  import { getNextSlide } from '$internal/utils/navigation'
   import { remote } from '$internal/utils/remote.svelte'
 
   import slides from '../../../slides'
@@ -52,75 +53,52 @@
     updateSlideUrl(nextSlide)
   }
 
-  function firstSlide() {
-    goToSlide(0)
-  }
-
-  function lastSlide() {
-    goToSlide(slides.length - 1)
-  }
-
-  function jumpForward() {
-    goToSlide(data.slideIndex + 10)
-  }
-
-  function jumpBack() {
-    goToSlide(data.slideIndex - 10)
-  }
-
-  function nextSlide() {
-    goToSlide(data.slideIndex + 1)
-  }
-
-  function previousSlide() {
-    goToSlide(data.slideIndex - 1)
-  }
-
   function onKeyPress(e: KeyboardEvent) {
-    if (e.key === 'ArrowRight') {
-      return nextSlide()
+    const nextSlide = getNextSlide(e, data.slideIndex, slides.length)
+    if (nextSlide != null) {
+      goToSlide(nextSlide)
+      return
     }
 
-    if (e.key === 'ArrowLeft') {
-      return previousSlide()
-    }
+    switch (e.key) {
+      // Remote control.
+      case 'r': {
+        if (remoteConnectUrl) {
+          showRemoteQrCode = !showRemoteQrCode
+          return
+        }
 
-    if (e.key === 'Home') {
-      return firstSlide()
-    }
+        const { presentationId, secret } = remote.host(
+          data.slideIndex,
+          slides.length,
+          updateSlideUrl,
+        )
+        remote.onStatusUpdate((status) => {
+          if (status === 'new-connection') {
+            showRemoteQrCode = false
+          }
+        })
 
-    if (e.key === 'End') {
-      return lastSlide()
-    }
-
-    if (e.key === 'PageUp') {
-      return jumpForward()
-    }
-
-    if (e.key === 'PageDown') {
-      return jumpBack()
-    }
-
-    if (e.key === 'r') {
-      if (remoteConnectUrl) {
+        remoteConnectUrl = `https://${$page.url.host}/remote/${presentationId}?secret=${secret}`
         showRemoteQrCode = true
-        return
+
+        break
       }
 
-      const { presentationId, secret } = remote.host(data.slideIndex, slides.length)
-      remote.onReceive(updateSlideUrl)
 
-      remoteConnectUrl = `https://${$page.url.host}/remote/${presentationId}?secret=${secret}`
-      // TODO: Hide QR code once phone connects.
-      showRemoteQrCode = true
-    }
-
-    if (e.key === 'Escape') {
+      case 'Escape': {
       showRemoteQrCode = false
-    }
+        break
+      }
 
-    if (e.key === 't' && !timerStartTime) {
+      // Timer.
+      case 't': {
+        if (!timerStartTime) {
       timerStartTime = Date.now()
+        }
+
+        break
+      }
     }
   }
 
