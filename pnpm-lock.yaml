@@ -102,8 +102,8 @@ importers:
         specifier: ^5.4.8
         version: 5.4.8
       vite-plugin-svelte:
-        specifier: 1.4.0-next
-        version: 1.4.0-next(rollup@4.24.0)(svelte@5.0.0-next.264)(vite@5.4.8)
+        specifier: 3.0.1
+        version: 3.0.1(rollup@4.24.0)(svelte@5.0.0-next.264)(vite@5.4.8)
 
 packages:
 
@@ -1835,10 +1835,10 @@ packages:
     resolution: {integrity: sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
 
-  rollup-plugin-svelte@5.2.3:
-    resolution: {integrity: sha512-513vOht9A93OV7fvmpIq8mD1JFgTZ5LidmpULKM2Od9P1l8oI5KwvO32fwCnASuVJS1EkRfvCnS7vKQ8DF4srg==}
+  rollup-plugin-svelte@6.1.1:
+    resolution: {integrity: sha512-ijnm0pH1ScrY4uxwaNXBpNVejVzpL2769hIEbAlnqNUWZrffLspu5/k9/l/Wsj3NrEHLQ6wCKGagVJonyfN7ow==}
     peerDependencies:
-      rollup: '>=0.60.0'
+      rollup: '>=1.19.2'
       svelte: '*'
 
   rollup-pluginutils@2.8.2:
@@ -2084,8 +2084,8 @@ packages:
       svelte:
         optional: true
 
-  svelte-hmr@0.10.3:
-    resolution: {integrity: sha512-s90yAPnfGE6rTbq9Vvq73z1XqLJ2qGw0VjorpwKfDZRIsB0/Ozu+uF5cyC1fS3dCyQcS2sZDMt4zQ/qDjDwa/Q==}
+  svelte-hmr@0.11.6:
+    resolution: {integrity: sha512-XUYcp7W26q/fF8tABZfCYGklwL4TDH48gc1KOjuBQNlTiMW63l/+rRqmfVOE/qKG5vns0J2NPo3zFjdahkwoHA==}
     peerDependencies:
       svelte: '>=3.19.0'
 
@@ -2210,8 +2210,8 @@ packages:
   vfile@6.0.3:
     resolution: {integrity: sha512-KzIbH/9tXat2u30jf+smMwFCsno4wHVdNmzFyL+T/L3UGqqk6JKfVqOFOZEpZSHADH1k40ab6NUIXZq422ov3Q==}
 
-  vite-plugin-svelte@1.4.0-next:
-    resolution: {integrity: sha512-u/BakCBzx6wAlC21jxdoPY7WNXRM65+mpEJTo3dcnVPL9ApGGvdScXLxSoUTC/xCxfc+Xuj6ylZID/S4tuaaRA==}
+  vite-plugin-svelte@3.0.1:
+    resolution: {integrity: sha512-R4XFM4pmeJ9GwKs5mcDDDQs1e6xvCrBumGLnApPdYarS6+kfDqeC0U1WOLp6LLUx1sUdv7poywnr9eNKenQfkg==}
     deprecated: use @sveltejs/vite-plugin-svelte for vite2.0+ support
     peerDependencies:
       svelte: ^3.0.0
@@ -4066,7 +4066,7 @@ snapshots:
 
   reusify@1.0.4: {}
 
-  rollup-plugin-svelte@5.2.3(rollup@4.24.0)(svelte@5.0.0-next.264):
+  rollup-plugin-svelte@6.1.1(rollup@4.24.0)(svelte@5.0.0-next.264):
     dependencies:
       require-relative: 0.8.7
       rollup: 4.24.0
@@ -4386,7 +4386,7 @@ snapshots:
     optionalDependencies:
       svelte: 5.0.0-next.264
 
-  svelte-hmr@0.10.3(svelte@5.0.0-next.264):
+  svelte-hmr@0.11.6(svelte@5.0.0-next.264):
     dependencies:
       svelte: 5.0.0-next.264
 
@@ -4553,11 +4553,11 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.2
 
-  vite-plugin-svelte@1.4.0-next(rollup@4.24.0)(svelte@5.0.0-next.264)(vite@5.4.8):
+  vite-plugin-svelte@3.0.1(rollup@4.24.0)(svelte@5.0.0-next.264)(vite@5.4.8):
     dependencies:
-      rollup-plugin-svelte: 5.2.3(rollup@4.24.0)(svelte@5.0.0-next.264)
+      rollup-plugin-svelte: 6.1.1(rollup@4.24.0)(svelte@5.0.0-next.264)
       svelte: 5.0.0-next.264
-      svelte-hmr: 0.10.3(svelte@5.0.0-next.264)
+      svelte-hmr: 0.11.6(svelte@5.0.0-next.264)
       vite: 5.4.8
     transitivePeerDependencies:
       - rollup
