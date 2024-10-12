@@ -4,11 +4,10 @@
   import { onMount } from 'svelte'
   import SvelteMarkdown from 'svelte-markdown'
 
-  import Background from '$assets/components/Background.svelte'
   import { remote } from '$lib/remote.svelte'
 
   import slides from '../../../slides'
-  import { resolveTemplate } from '../../../templates'
+  import SlideView from '../../components/SlideView.svelte'
 
   let { data }: { data: PageData } = $props()
 
@@ -48,13 +47,7 @@
     <button class="previous" onclick={previousSlide}>&lt; Previous</button>
     <button class="next" onclick={nextSlide}>Next &gt;</button>
   </div>
-  <div class="preview">
-    <!-- Don't render iframes because the blow up the remote. -->
-    {#if !currentSlide.iframe}
-      <svelte:component this={resolveTemplate(currentSlide)} {...currentSlide} />
-    {/if}
-    <Background {currentSlideIndex} {...currentSlide} />
-  </div>
+  <SlideView slideIndex={currentSlideIndex} scale />
 </div>
 
 <style>
@@ -85,15 +78,5 @@
       border: 1px solid var(--interface-dark);
       border-radius: 0;
     }
-  }
-
-  .preview {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-  }
-
-  :global(html) {
-    /* Override base font size in previews. */
-    font-size: 12px !important;
   }
 </style>

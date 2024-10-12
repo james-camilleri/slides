@@ -5,8 +5,6 @@
   import Text from './common-components/Text.svelte'
   import Title from './common-components/Title.svelte'
 
-  import '../styles/slides.css'
-
   let { h1, h2, text, image }: Slide = $props()
 </script>
 

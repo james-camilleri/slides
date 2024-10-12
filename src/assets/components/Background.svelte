@@ -63,7 +63,7 @@
   </svg>
 </div>
 
-<style lang="css">
+<style>
   .background {
     position: absolute;
     top: 0;

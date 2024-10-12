@@ -1,10 +1,7 @@
 <script lang="ts">
   import type { PageData } from './$types'
 
-  import { qr } from '@svelte-put/qr/svg'
   import { onMount } from 'svelte'
-  import { quintOut } from 'svelte/easing'
-  import { fade, scale } from 'svelte/transition'
 
   import { beforeNavigate, goto } from '$app/navigation'
   import { page } from '$app/stores'
@@ -12,8 +9,8 @@
   import { remote } from '$lib/remote.svelte'
 
   import slides from '../../../slides'
-  import { resolveTemplate } from '../../../templates'
   import Controls from '../../components/Controls.svelte'
+  import SlideView from '../../components/SlideView.svelte'
   import Timer from '../../components/Timer.svelte'
 
   const imageUrls = slides.reduce((imageUrls, slide) => {
@@ -35,7 +32,7 @@
   })
 
   let { data }: { data: PageData } = $props()
-  let currentSlide = $derived(slides[data.slideIndex])
+  let currentIndex = $derived(data.slideIndex)
 
   let remoteConnectUrl = $state('')
   let showRemoteQrCode = $state(false)
@@ -160,15 +157,12 @@
 </div>
 
 <div class="controls">
-  <Controls baseUrl="/slides" currentSlide={data.slideIndex} lastSlide={slides.length - 1} />
+  <Controls baseUrl="/slides" currentSlide={currentIndex} lastSlide={slides.length - 1} />
 </div>
 
-{#key data.slideIndex}
-  <div in:scale out:fade={{ easing: quintOut }}>
-    <svelte:component this={resolveTemplate(currentSlide)} {...currentSlide} />
+<div class="view">
+  <SlideView slideIndex={currentIndex} />
   </div>
-{/key}
-<Background currentSlideIndex={data.slideIndex} {...currentSlide} />
 
 <div class="iframe-preload">
   {#each slides as slide}
@@ -179,6 +173,11 @@
 </div>
 
 <style>
+  .view {
+    width: 100vw;
+    height: 100vh;
+  }
+
   .timer {
     position: fixed;
     bottom: 1rem;

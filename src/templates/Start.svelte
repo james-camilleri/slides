@@ -1,5 +1,8 @@
 <script lang="ts">
-  import '../styles/slides.css'
+  import type { Slide } from '$lib/slide'
+
+  // We're not using any of the props for this template.
+  let props: Slide = $props()
 </script>
 
 <div class="slide">
@@ -31,9 +34,9 @@
 
   .dot {
     display: inline-block;
-    width: 0.5rem;
-    height: 0.5rem;
-    margin: 0.1rem;
+    width: 0.5em;
+    height: 0.5em;
+    margin: 0.1em;
     background-color: var(--primary);
     border-radius: 100%;
     animation: sync 1s ease-in-out infinite alternate both running;
