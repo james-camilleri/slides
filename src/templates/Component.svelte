@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { Slide } from '$lib/slide'
 
-  import '../styles/slides.css'
   import Title from './common-components/Title.svelte'
 
   let { h1, h2, component }: Slide = $props()

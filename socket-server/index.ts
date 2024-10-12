@@ -2,6 +2,7 @@ import type * as Party from 'partykit/server'
 
 export default class Server implements Party.Server {
   #secret: string | null = null
+  #authorised = new Set<string>()
   #currentSlide = 0
   #totalSlides = 0
 
@@ -11,26 +12,31 @@ export default class Server implements Party.Server {
     const secret = new URL(request.url).searchParams.get('secret')
     const totalSlides = new URL(request.url).searchParams.get('totalSlides')
 
-    if (!this.#secret) {
-      this.#secret = secret
+    if (secret) {
+      // The first connection should be the host setting up the room.
+      if (!this.#secret) {
+        this.#secret = secret
+
+        if (totalSlides != null) {
+          this.#totalSlides = Number(totalSlides)
+        }
+      }
+
+      this.#authorised.add(connection.id)
     }
 
-    if (totalSlides != null) {
-      this.#totalSlides = Number(totalSlides)
-    }
+    // Notify all other clients that a new connection has been made.
+    // This is currently only used to hide the connection QR code on the main presentation.
+    this.room.broadcast(JSON.stringify({ status: 'new-connection' }), [connection.id])
 
-    // TODO: Get some sort of auth working properly.
-    if (this.#secret !== secret) {
-      return
-      // return new Response('Connection secret required', { status: 401 })
-    }
-
-    if (this.#currentSlide != null) {
-      connection.send(JSON.stringify({ slide: this.#currentSlide }))
-    }
+    connection.send(JSON.stringify({ slide: this.#currentSlide }))
   }
 
-  onMessage(message: string) {
+  onMessage(message: string, sender: Party.Connection) {
+    if (!this.#authorised.has(sender.id)) {
+      return
+    }
+
     const { slide } = JSON.parse(message) as { slide: number }
     const sanitisedIndex = Math.max(0, Math.min(this.#totalSlides - 1, slide))
 

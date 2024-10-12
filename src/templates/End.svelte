@@ -1,5 +1,8 @@
 <script lang="ts">
-  import '../styles/slides.css'
+  import type { Slide } from '$lib/slide'
+
+  // We're not using any of the props for this template.
+  let props: Slide = $props()
 </script>
 
 <div class="slide">
@@ -16,7 +19,7 @@
   }
 
   span {
-    font-size: 1.5rem;
+    font-size: 1.5em;
     font-weight: 700;
     color: var(--primary);
   }

@@ -3,8 +3,6 @@
 
   import Text from './common-components/Text.svelte'
 
-  import '../styles/slides.css'
-
   let { text }: Slide = $props()
 </script>
 

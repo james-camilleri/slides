@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { Slide } from '$lib/slide'
 
-  import '../styles/slides.css'
   import { random } from '$lib/random'
 
   import Title from './common-components/Title.svelte'
@@ -45,7 +44,7 @@
   .grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: 2em;
     align-items: center;
     justify-content: center;
     width: 100%;

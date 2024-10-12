@@ -3,7 +3,6 @@
 
   import { codeToHtml } from 'shiki'
 
-  import '../styles/slides.css'
   import Title from './common-components/Title.svelte'
 
   let { h1, h2, code }: Slide = $props()
@@ -37,14 +36,14 @@
     width: 100%;
     margin: 0;
     overflow-x: hidden;
-    background-color: transparent !important;
-    scrollbar-width: thin;
     scrollbar-color: var(--react-blue);
+    scrollbar-width: thin;
+    background-color: transparent !important;
   }
 
   :global(code) {
     font-family: 'fira code', monospace;
-    font-size: 0.8rem;
+    font-size: 0.8em;
     font-feature-settings: 'calt';
     font-variant-ligatures: contextual;
   }

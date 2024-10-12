@@ -8,9 +8,13 @@ const config = {
     adapter: adapter({ edge: true }),
     alias: {
       $assets: './src/assets',
+      $slides: './src/slides.ts',
+      '$internal/components': './src/app/components',
+      '$internal/utils': './src/app/utils',
     },
     files: {
-      routes: './src/app',
+      params: './src/app/params',
+      routes: './src/app/routes',
     },
   },
 }
