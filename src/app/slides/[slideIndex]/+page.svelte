@@ -6,6 +6,7 @@
   import { beforeNavigate, goto } from '$app/navigation'
   import { page } from '$app/stores'
   import Controls from '$internal/components/Controls.svelte'
+  import QrCode from '$internal/components/QrCode.svelte'
   import SlideView from '$internal/components/SlideView.svelte'
   import Timer from '$internal/components/Timer.svelte'
   import { getNextSlide } from '$internal/utils/navigation'
@@ -115,18 +116,7 @@
 <svelte:window onkeydown={onKeyPress} />
 
 {#if showRemoteQrCode}
-  <div class="overlay">
-    <span>Pair remote</span>
-    <div class="qr-background">
-      <svg
-        use:qr={{
-          data: remoteConnectUrl,
-          shape: 'circle',
-        }}
-      />
-    </div>
-    <span class="connect-url">{remoteConnectUrl}</span>
-  </div>
+  <QrCode title="Pair remote" connectionUrl={remoteConnectUrl} />
 {/if}
 
 <div class="timer">
@@ -168,40 +158,6 @@
     bottom: 1rem;
     z-index: 10;
     opacity: 0.7;
-  }
-
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
-    height: 100vh;
-    font-size: 2rem;
-    color: var(--interface-light);
-    background: var(--interface-dark-semitransparent);
-  }
-
-  .qr-background {
-    padding: 1rem;
-    background: var(--interface-light);
-    border-radius: 1rem;
-  }
-
-  svg {
-    width: 33vh;
-    height: 33vh;
-    color: var(--interface-dark);
-  }
-
-  .connect-url {
-    font-family: monospace;
-    font-size: 0.5rem;
   }
 
   .iframe-preload {
