@@ -182,15 +182,15 @@
 
   .timer {
     position: fixed;
-    bottom: 1rem;
-    left: 1.5rem;
+    bottom: 1em;
+    left: 1.5em;
     z-index: 10;
   }
 
   .controls {
     position: fixed;
-    right: 1rem;
-    bottom: 1rem;
+    right: 2em;
+    bottom: 2em;
     z-index: 10;
     opacity: 0.7;
   }

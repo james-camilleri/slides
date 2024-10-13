@@ -38,15 +38,15 @@
   }
 
   a:first-child {
-    padding: 0.25rem 0 0.25rem 0.5rem;
+    padding: 3em 0 3em 1em;
   }
 
   a:last-child {
-    padding: 0.25rem 0.5rem 0.25rem 0;
+    padding: 3em 1em 3em 0;
   }
 
   svg {
-    width: 1rem;
-    height: 1rem;
+    width: 3em;
+    height: 3em;
   }
 </style>
