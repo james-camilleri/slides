@@ -11,15 +11,17 @@
   import { remote } from '$internal/utils/remote.svelte'
   import slides from '$slides'
 
+  import { goto } from '$app/navigation'
+
   let { data }: { data: PageData } = $props()
 
-  let slideIndex = $state(0)
+  let slideIndex = $derived(data.slideIndex)
   let { notes = [] } = $derived(slides[slideIndex])
   let timerStartTime: number | undefined = $state()
 
   onMount(() => {
     remote.connect(data.presentation, data.secret, (index) => {
-      slideIndex = index
+      goto(`./${index}`)
     })
   })
 

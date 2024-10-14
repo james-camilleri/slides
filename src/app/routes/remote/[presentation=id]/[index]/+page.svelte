@@ -8,10 +8,12 @@
   import { remote } from '$internal/utils/remote.svelte'
   import slides from '$slides'
 
+  import { goto } from '$app/navigation'
+
   let { data }: { data: PageData } = $props()
 
-  let currentSlideIndex = $state(0)
-  let currentSlide = $derived(slides[currentSlideIndex])
+  let slideIndex = $derived(data.slideIndex)
+  let currentSlide = $derived(slides[slideIndex])
 
   onMount(() => {
     if (!data.secret) {
@@ -20,17 +22,17 @@
     }
 
     remote.connect(data.presentation, data.secret, (index) => {
-      currentSlideIndex = index
+      goto(`./${index}`)
     })
   })
 
   function nextSlide() {
-    remote.send(currentSlideIndex + 1)
+    remote.send(slideIndex + 1)
     navigator.vibrate(50)
   }
 
   function previousSlide() {
-    remote.send(currentSlideIndex - 1)
+    remote.send(slideIndex - 1)
     navigator.vibrate(50)
   }
 </script>
@@ -45,7 +47,7 @@
     <button class="previous" onclick={previousSlide}>&lt; Previous</button>
     <button class="next" onclick={nextSlide}>Next &gt;</button>
   </div>
-  <SlideView slideIndex={currentSlideIndex} scale />
+  <SlideView {slideIndex} scale />
 </div>
 
 <style>
