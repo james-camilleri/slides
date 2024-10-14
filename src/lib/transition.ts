@@ -1,14 +1,17 @@
 import { quintOut } from 'svelte/easing'
-import { type TransitionConfig, fade, scale } from 'svelte/transition'
+import { type TransitionConfig as SvelteTransitionConfig, fade, scale } from 'svelte/transition'
 
-type TransitionFunction = (
+export type TransitionFunction = (
   node: Element,
   params: never,
   options?: { direction: 'in' | 'out' | 'both' },
-) => TransitionConfig
-type SlideTransitions = { in: TransitionFunction; out: TransitionFunction }
+) => SvelteTransitionConfig
 
-export const transition = {
+export type SlideTransitionsConfig = { in: TransitionFunction; out: TransitionFunction }
+export type TransitionConfigFunction = (direction: number) => SlideTransitionsConfig
+
+// Add your transitions here.
+export const transition: TransitionConfigFunction = () => ({
   in: scale,
   out: (node) => fade(node, { easing: quintOut }),
-} satisfies SlideTransitions
+})
