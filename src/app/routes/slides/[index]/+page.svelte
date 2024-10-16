@@ -97,7 +97,7 @@
       case 'n': {
         const { presentationId } = remote.host(data.slideIndex, slides.length, updateSlideUrl)
 
-        window.open(`http://${$page.url.host}/notes/${presentationId}/${currentIndex}`)
+        window.open(`https://${$page.url.host}/notes/${presentationId}/${currentIndex}`)
         break
       }
 
