@@ -9,7 +9,7 @@ import Hippo from '$assets/images/hippo.svg'
 import KiwiBird from '$assets/images/kiwi-bird.svg'
 
 export default [
-  { template: 'start' },
+  { template: 'Start' },
   {
     h1: 'Slide 1',
     text: 'Some plain old ordinary text.',
@@ -32,8 +32,6 @@ export default [
   },
   {
     text: 'A slide with **centred** text.',
-    // Use the `template` property to manually select a template.
-    template: 'centredText',
   },
   {
     h2: 'Lots of images!',
@@ -54,5 +52,5 @@ export default [
   {
     iframe: 'https://www.spacejam.com/1996',
   },
-  { template: 'end' },
+  { template: 'End' },
 ] satisfies Slide[]
