@@ -35,6 +35,7 @@
       imageFrame = !hasTransparentPixels(canvasElement, imageElement)
     } else {
       imageElement.addEventListener('load', () => {
+        // @ts-expect-error canvas element won't be undefined here, because of the above check.
         imageFrame = !hasTransparentPixels(canvasElement, imageElement)
       })
     }
@@ -42,6 +43,7 @@
 </script>
 
 <div class="img-wrapper">
+  <!-- svelte-ignore a11y_missing_attribute -->
   <img src={image} class:frame={imageFrame} bind:this={imageElement} />
 </div>
 

@@ -7,6 +7,7 @@
 <div class="slide">
   {#if image}
     <div class="img-wrapper">
+      <!-- svelte-ignore a11y_missing_attribute -->
       <img src={image} />
     </div>
   {/if}

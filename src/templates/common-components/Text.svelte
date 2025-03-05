@@ -14,7 +14,7 @@
 </script>
 
 <div>
-  {#each paragraphs as { text, style = { } }}
+  {#each paragraphs as { text, style = { } } (text)}
     {#if text === ''}
       <br />
     {/if}

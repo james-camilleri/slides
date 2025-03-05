@@ -1,7 +1,10 @@
 <script lang="ts">
   import type { PageData } from './$types'
 
+  // TODO: Something wrong with this linting config.
+  // eslint-disable-next-line import/no-duplicates
   import { onMount } from 'svelte'
+  // eslint-disable-next-line import/no-duplicates
   import { fade } from 'svelte/transition'
   import SvelteMarkdown from 'svelte-markdown'
 
@@ -27,7 +30,7 @@
     Slide {slideIndex}
   </span>
   <div class="notes">
-    {#each notes as note}
+    {#each notes as note (note)}
       <span transition:fade={{ duration: 200 }}>
         <SvelteMarkdown source={note} />
       </span>

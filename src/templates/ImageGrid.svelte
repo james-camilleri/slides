@@ -18,7 +18,8 @@
   <Title {h1} {h2} />
 
   <div class="grid">
-    {#each imageList as image}
+    {#each imageList as image (image)}
+      <!-- svelte-ignore a11y_missing_attribute -->
       <img src={image} style:--delay="{random(0.2, 0.8)}s" style:--width="{width}%" />
     {/each}
   </div>

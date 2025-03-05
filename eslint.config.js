@@ -4,7 +4,7 @@ import importPlugin from 'eslint-plugin-import'
 import svelte from 'eslint-plugin-svelte'
 import globals from 'globals'
 import svelteParser from 'svelte-eslint-parser'
-import ts from 'typescript-eslint'
+import { configs as tsConfigs, parser as tsParser } from 'typescript-eslint'
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -27,7 +27,7 @@ export default [
       parser: svelteParser,
       parserOptions: {
         project: true,
-        parser: ts.parser,
+        parser: tsParser,
         tsconfigRootDir: import.meta.dirname,
         extraFileExtensions: ['.svelte'],
       },
@@ -42,7 +42,7 @@ export default [
   },
 
   js.configs.recommended,
-  ...ts.configs.recommended,
+  ...tsConfigs.recommended,
   importPlugin.flatConfigs.recommended,
   importPlugin.flatConfigs.typescript,
   ...svelte.configs['flat/recommended'],
@@ -52,7 +52,7 @@ export default [
   {
     name: 'disable type-checked',
     files: ['**/*.js'],
-    ...ts.configs.disableTypeChecked,
+    ...tsConfigs.disableTypeChecked,
   },
 
   {

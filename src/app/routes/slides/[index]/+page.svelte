@@ -182,7 +182,7 @@
 </div>
 
 <div class="iframe-preload">
-  {#each slides as slide}
+  {#each slides as slide, i (i)}
     {#if slide.iframe}
       <iframe title="preload: {slide.iframe}" src={slide.iframe}></iframe>
     {/if}

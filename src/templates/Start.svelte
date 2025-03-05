@@ -11,8 +11,8 @@
     https://github.com/Schum123/svelte-loading-spinners/blob/master/src/lib/SyncLoader.svelte
   -->
   <div class="wrapper">
-    {#each { length: 3 } as _, i}
-      <div class="dot" style="animation-delay: {i * 0.1}s"></div>
+    {#each { length: 3 } as _, i (i)}
+      <div class="dot" style="animation-delay: {i * 0.1}s;"></div>
     {/each}
   </div>
 </div>

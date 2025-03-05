@@ -39,7 +39,7 @@
 
 <div class="remote">
   <div class="notes">
-    {#each currentSlide.notes ?? [] as note}
+    {#each currentSlide.notes ?? [] as note (note)}
       <SvelteMarkdown source={note} />
     {/each}
   </div>
