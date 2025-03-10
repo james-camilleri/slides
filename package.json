@@ -23,7 +23,7 @@
     "eslint-config-prettier": "^10.0.2",
     "eslint-import-resolver-typescript": "^3.8.3",
     "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-svelte": "3.0.3",
+    "eslint-plugin-svelte": "3.1.0",
     "globals": "^16.0.0",
     "partykit": "^0.0.111",
     "partysocket": "1.0.3",
